@@ -1,36 +1,36 @@
-package com.example.CarSearchService.service;
+package com.example.OptionsService.service;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
-import com.example.CarSearchService.model.Car;
+import com.example.OptionsService.model.Options;
 @Service
-public class CarSearchService {
-   private static Map < Long, Car > CarRepsitory = null;
+public class OptionsService {
+   private static Map < Long, Options > OptionsRepsitory = null;
    static {
-      Stream < String > carStream = Stream.of("1,Shamik  Mitra,Java,Architect", "2,Samir  Mitra,C++,Manager",
+      Stream < String > optionsStream = Stream.of("1,Shamik  Mitra,Java,Architect", "2,Samir  Mitra,C++,Manager",
               "3,Swastika  Mitra,AI,Sr.Architect");
-      CarRepsitory = carStream.map(carStr -> {
-         String[] info = carStr.split(",");
-         final Car car = createCar(Long.valueOf(info[0]), info[1], info[2], info[3]);
-         return car;
-      }).collect(Collectors.toMap(Car::getCarId, car -> car));
+      OptionsRepsitory = optionsStream.map(optionsStr -> {
+         String[] info = optionsStr.split(",");
+         final Options options = createOptions(Long.valueOf(info[0]), info[1], info[2], info[3]);
+         return options;
+      }).collect(Collectors.toMap(Options::getOptionsId, options -> options));
    }
-   private static Car createCar(Long id, String name, String practiceArea, String designation) {
-      Car car = new Car();
-      car.setCarId(id);
-      car.setName(name);
-      car.setPracticeArea(practiceArea);
-      car.setDesignation(designation);
-      car.setCompanyInfo("Cognizant");
-      return car;
+   private static Options createOptions(Long id, String name, String practiceArea, String designation) {
+      Options options = new Options();
+      options.setOptionsId(id);
+      options.setName(name);
+      options.setPracticeArea(practiceArea);
+      options.setDesignation(designation);
+      options.setCompanyInfo("Cognizant");
+      return options;
    }
-   public Car findById(Long id) {
-      return CarRepsitory.get(id);
+   public Options findById(Long id) {
+      return OptionsRepsitory.get(id);
    }
-   public Collection < Car > findAll() {
-      return CarRepsitory.values();
+   public Collection < Options > findAll() {
+      return OptionsRepsitory.values();
    }
 }

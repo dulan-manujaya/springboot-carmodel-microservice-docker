@@ -1,36 +1,36 @@
-package com.example.CarSearchService.service;
+package com.example.PriceService.service;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
-import com.example.CarSearchService.model.Car;
+import com.example.PriceService.model.Price;
 @Service
-public class CarSearchService {
-   private static Map < Long, Car > CarRepsitory = null;
+public class PriceService {
+   private static Map < Long, Price > PriceRepsitory = null;
    static {
-      Stream < String > carStream = Stream.of("1,Shamik  Mitra,Java,Architect", "2,Samir  Mitra,C++,Manager",
+      Stream < String > priceStream = Stream.of("1,Shamik  Mitra,Java,Architect", "2,Samir  Mitra,C++,Manager",
               "3,Swastika  Mitra,AI,Sr.Architect");
-      CarRepsitory = carStream.map(carStr -> {
-         String[] info = carStr.split(",");
-         final Car car = createCar(Long.valueOf(info[0]), info[1], info[2], info[3]);
-         return car;
-      }).collect(Collectors.toMap(Car::getCarId, car -> car));
+      PriceRepsitory = priceStream.map(priceStr -> {
+         String[] info = priceStr.split(",");
+         final Price price = createPrice(Long.valueOf(info[0]), info[1], info[2], info[3]);
+         return price;
+      }).collect(Collectors.toMap(Price::getPriceId, price -> price));
    }
-   private static Car createCar(Long id, String name, String practiceArea, String designation) {
-      Car car = new Car();
-      car.setCarId(id);
-      car.setName(name);
-      car.setPracticeArea(practiceArea);
-      car.setDesignation(designation);
-      car.setCompanyInfo("Cognizant");
-      return car;
+   private static Price createPrice(Long id, String name, String practiceArea, String designation) {
+      Price price = new Price();
+      price.setPriceId(id);
+      price.setName(name);
+      price.setPracticeArea(practiceArea);
+      price.setDesignation(designation);
+      price.setCompanyInfo("Cognizant");
+      return price;
    }
-   public Car findById(Long id) {
-      return CarRepsitory.get(id);
+   public Price findById(Long id) {
+      return PriceRepsitory.get(id);
    }
-   public Collection < Car > findAll() {
-      return CarRepsitory.values();
+   public Collection < Price > findAll() {
+      return PriceRepsitory.values();
    }
 }

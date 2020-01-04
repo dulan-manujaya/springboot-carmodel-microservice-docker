@@ -1,16 +1,16 @@
 
-package com.example.CarSearchService.model;
-public class Car {
-   private Long carId;
+package com.example.PriceService.model;
+public class Price {
+   private Long priceId;
    private String name;
    private String practiceArea;
    private String designation;
    private String companyInfo;
-   public Long getCarId() {
-      return carId;
+   public Long getPriceId() {
+      return priceId;
    }
-   public void setCarId(Long carId) {
-      this.carId = carId;
+   public void setPriceId(Long priceId) {
+      this.priceId = priceId;
    }
    public String getName() {
       return name;
@@ -38,6 +38,6 @@ public class Car {
    }
    @Override
    public String toString() {
-      return "Car [carId=" + carId + ", name=" + name + ", practiceArea=" + practiceArea + ", designation=" + designation + ", companyInfo=" + companyInfo + "]";
+      return "Price [priceId=" + priceId + ", name=" + name + ", practiceArea=" + practiceArea + ", designation=" + designation + ", companyInfo=" + companyInfo + "]";
    }
 }
