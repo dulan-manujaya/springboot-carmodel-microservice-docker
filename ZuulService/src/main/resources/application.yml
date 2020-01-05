@@ -1,0 +1,42 @@
+
+
+      server:
+        port: ${PORT:8084}
+
+      spring:
+        application:
+          name: CarAPIGateway
+
+      zuul:
+        #  prefix: /api/v1
+        routes:
+          CarSearch:
+            path: /car/**
+            #url: https://localhost:8080/
+            serviceId: CarSearch
+            stripPrefix: false
+
+          Options:
+            path: /options/**
+            #url: https://localhost:8080/
+            serviceId: Options
+            stripPrefix: false
+
+          Price:
+            path: /price/**
+            #url: https://localhost:8080/
+            serviceId: Price
+            stripPrefix: false
+        ribbon:
+          eager-load:
+            enabled: true
+            ReadTimeout: 100000
+      eureka:
+        instance:
+          prefer-ip-address: true
+        client:
+          register-with-eureka: true
+          fetch-registry: true
+          serviceUrl:
+            defaultZone: http://localhost:9091/eureka/
+
