@@ -1,0 +1,81 @@
+version: "3.3"
+services:
+  discovery:
+    image: tanerdiler/service-discovery
+    container_name: service-discovery
+    build:
+      context: ./containerized-discovery
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+  gateway:
+    image: tanerdiler/service-gateway
+    container_name: service-gateway
+    build:
+      context: ./containerized-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8762:8762"
+    environment:
+      - DISCOVERY_HOST=discovery
+    depends_on:
+      - discovery
+    links:
+      - discovery
+
+  accounts:
+    image: tanerdiler/service-accounts-api
+    container_name: service-accounts
+    build:
+      context: ./containerized-accounts
+      dockerfile: Dockerfile
+    ports:
+      - "7500:2222"
+    environment:
+      - DISCOVERY_HOST=discovery
+    depends_on:
+      - discovery
+    links:
+      - discovery
+
+  products:
+    image: tanerdiler/service-products-api
+    container_name: service-products
+    build:
+      context: ./containerized-products
+      dockerfile: Dockerfile
+    ports:
+      - "7501:2222"
+    environment:
+      - DISCOVERY_HOST=discovery
+    depends_on:
+      - accounts
+  orders:
+    image: tanerdiler/service-orders-api
+    container_name: service-orders
+    build:
+      context: ./containerized-orders
+      dockerfile: Dockerfile
+    ports:
+      - "7502:2222"
+    environment:
+      - DISCOVERY_HOST=discovery
+    depends_on:
+      - products
+    links:
+      - discovery
+  main:
+    image: tanerdiler/service-main-api
+    container_name: service-main
+    build:
+      context: ./containerized-main
+      dockerfile: Dockerfile
+    ports:
+      - "7503:2222"
+    environment:
+      - DISCOVERY_HOST=discovery
+    depends_on:
+      - orders
+      - accounts
+      - products
